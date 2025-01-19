@@ -1,39 +1,39 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import { Visible } from '../App';
+import '../styles/GenInfo.css'
 
 function MainBtns() {
-    const [editOn, setEdit] = useState(true);
-
-    function toggleEdit() {
-        if (editOn) setEdit(false);
-        else setEdit(true);
-    }
+    const {isVisible, toggleVisibility} = useContext(Visible);
 
     return (
         <>
-            <div>
-                <button onClick = {toggleEdit} disabled = {!editOn}> Edit </button>
-                <button onClick = {toggleEdit} disabled = {editOn}> Submit </button>
+            <div className='main-btns'>
+                <button onClick = {toggleVisibility} disabled = {!isVisible}> Edit </button>
+                <button onClick = {toggleVisibility} disabled = {isVisible}> Submit </button>
             </div>
         </>
     )
 }
 
-function InputField({type, value, fontSize, func}) {
+function InputField({id, show, type, value, fontSize, func}) {
     const inputStyle = {
-        fontSize: fontSize + 'px'
+        fontSize: fontSize + 'px',
+        display: {show}
     }
 
     return (
         <div>
+            <label htmlFor={id} style = {{...inputStyle, display: show ? "none" : "block"}}>{id + ":"} <br></br></label>
             <input
-                style = {inputStyle} type = {type} value = {value} onChange = {func}
+                style = {{...inputStyle, display: show ? "none" : "block"}} id = {id} type = {type} value = {value} onChange = {func}
             />
-            <p style = {inputStyle}> {value} </p>
+            <p style = {{...inputStyle, display: show ? "block" : "none"}}> {value} </p>
         </div>
     )
 }
 
 InputField.defaultProps = {
+    show: "block",
     type: "text",
     value: "",
     fontSize: 11
@@ -44,12 +44,14 @@ function GenInfo() {
     const [email, setEmail] = useState("");
     const [phoneNum, setPhoneNum] = useState("");
 
+    const {isVisible, toggleVisibility} = useContext(Visible);
+
     return (
-        <>
-            <InputField value = {fullName} fontSize = {20} func = {(e) => setFullName(e.target.value)}/>
-            <InputField value = {email} func = {(e) => setEmail(e.target.value)}/>
-            <InputField value = {phoneNum} func = {(e) => setPhoneNum(e.target.value)}/>
-        </>
+        <div className='gen-info'>
+            <InputField id = "Full Name" show = {isVisible} value = {fullName} fontSize = {20} func = {(e) => setFullName(e.target.value)}/>
+            <InputField id = "Email" show = {isVisible} value = {email} func = {(e) => setEmail(e.target.value)}/>
+            <InputField id = "Phone Number" show = {isVisible} value = {phoneNum} func = {(e) => setPhoneNum(e.target.value)}/>
+        </div>
     )
 }
 

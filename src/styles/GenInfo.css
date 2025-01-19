@@ -1,0 +1,11 @@
+.main-btns {
+    display: flex;
+    justify-content: end;
+    /* background-color: aqua; */
+    width: 100%;
+}
+
+/* .main-btns button {
+    background-color: beige;
+    color: red;
+} */
