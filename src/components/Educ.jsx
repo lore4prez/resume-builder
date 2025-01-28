@@ -81,4 +81,4 @@ function Education() {
 //     )
 // }
 
-export {Education}
+export {Education, AddBulletPoint}
