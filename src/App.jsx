@@ -1,6 +1,7 @@
 import { useState, createContext } from 'react'
 import './App.css'
 import { MainBtns, GenInfo } from './components/GenInfo'
+import { Education } from './components/Educ'
 
 const Visible = createContext({ 
   isVisible: true, 
@@ -16,6 +17,7 @@ function App() {
     <Visible.Provider value = {{isVisible, toggleVisibility}}>
       <MainBtns></MainBtns>
       <GenInfo></GenInfo>
+      <Education></Education>
     </Visible.Provider>
   )
 }

@@ -2,6 +2,8 @@ import {useState, useContext} from 'react';
 import { Visible } from '../App';
 import '../styles/GenInfo.css'
 
+// Component for the two main buttons: edit and submit
+// Clicking edit will remove all of the displayed values and show input fields, clicking submit will remove the input fields and show the input values
 function MainBtns() {
     const {isVisible, toggleVisibility} = useContext(Visible);
 
@@ -15,15 +17,17 @@ function MainBtns() {
     )
 }
 
+// Component for all general input fields
+// label, input, text (p)
 function InputField({id, show, type, value, fontSize, func}) {
     const inputStyle = {
         fontSize: fontSize + 'px',
         display: {show}
     }
-
+    // This label element is where you  last stopped
     return (
         <div>
-            <label htmlFor={id} style = {{...inputStyle, display: show ? "none" : "block"}}>{id + ":"} <br></br></label>
+            <label htmlFor={id} style = {{...inputStyle, display: show ? "none" : "block"}} >{id} <br></br></label>
             <input
                 style = {{...inputStyle, display: show ? "none" : "block"}} id = {id} type = {type} value = {value} onChange = {func}
             />
@@ -33,18 +37,21 @@ function InputField({id, show, type, value, fontSize, func}) {
 }
 
 InputField.defaultProps = {
+    id: "",
     show: "block",
+    showLabel: true,
     type: "text",
     value: "",
     fontSize: 11
 }
 
+// Component that shows the general info: name, email, phone #
 function GenInfo() {
     const [fullName, setFullName] = useState(""); 
     const [email, setEmail] = useState("");
     const [phoneNum, setPhoneNum] = useState("");
 
-    const {isVisible, toggleVisibility} = useContext(Visible);
+    const {isVisible} = useContext(Visible);
 
     return (
         <div className='gen-info'>
@@ -55,4 +62,4 @@ function GenInfo() {
     )
 }
 
-export {MainBtns, GenInfo}
+export {MainBtns, GenInfo, InputField}
